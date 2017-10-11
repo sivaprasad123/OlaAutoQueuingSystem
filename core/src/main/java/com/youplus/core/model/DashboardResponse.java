@@ -12,7 +12,7 @@ public class DashboardResponse {
   }
 
   private Integer requestId;
-  private Integer CustomerId;
+  private Integer customerId;
   private String timeElapsed;
   private String status;
   private Integer driverId;
@@ -26,11 +26,11 @@ public class DashboardResponse {
   }
 
   public Integer getCustomerId() {
-    return CustomerId;
+    return customerId;
   }
 
   public void setCustomerId(Integer customerId) {
-    CustomerId = customerId;
+    this.customerId = customerId;
   }
 
   public String getTimeElapsed() {

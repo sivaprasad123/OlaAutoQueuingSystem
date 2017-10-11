@@ -49,7 +49,7 @@ public class OlaAutoController {
     return mv;
   }
 
-  @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
+  @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
   public ModelAndView getDashboardInfo(HttpServletRequest req) {
     DashboardResponse dashboardResponse = new DashboardResponse();
     dashboardResponse.setCustomerId(123);
