@@ -2,7 +2,6 @@ package com.youplus.web.controller;
 
 import com.youplus.core.model.DashboardResponse;
 import com.youplus.core.model.OlaRideRequest;
-import com.youplus.core.model.PickRideRequest;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;

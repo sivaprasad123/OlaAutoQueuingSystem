@@ -1,4 +1,4 @@
-package com.youplus.web.entity.ola;
+package com.youplus.core.entity;
 
 /**
  * Created by siva on 10/10/17.
@@ -16,18 +16,21 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-@Table(name = "driver")
-public class Driver {
+@Table(name = "customer")
+public class Customer {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name = "email")
-  private String email;
-
   @Column(name = "mobile")
   private String mobile;
+
+  @Column(name = "is_active")
+  private Short isActive;
+
+  @Column(name = "name")
+  private String name;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "created_at")
@@ -37,32 +40,12 @@ public class Driver {
   @Column(name = "updated_at")
   private Date modifiedAt;
 
-  @Column(name = "is_active")
-  private Short isActive;
-
-  @Column(name = "first_name")
-  private String firstName;
-
-  @Column(name = "last_name")
-  private String lastName;
-
-  @Column(name = "gender")
-  private Short gender;
-
   public Integer getId() {
     return id;
   }
 
   public void setId(Integer id) {
     this.id = id;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
   }
 
   public String getMobile() {
@@ -97,28 +80,12 @@ public class Driver {
     this.isActive = isActive;
   }
 
-  public String getFirstName() {
-    return firstName;
+  public String getName() {
+    return name;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public Short getGender() {
-    return gender;
-  }
-
-  public void setGender(Short gender) {
-    this.gender = gender;
+  public void setName(String name) {
+    this.name = name;
   }
 }
 
