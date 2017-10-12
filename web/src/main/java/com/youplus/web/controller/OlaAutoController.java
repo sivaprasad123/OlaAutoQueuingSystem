@@ -1,7 +1,8 @@
 package com.youplus.web.controller;
 
+import com.youplus.core.model.CustomerRideRequest;
 import com.youplus.core.model.DashboardResponse;
-import com.youplus.core.model.OlaRideRequest;
+import com.youplus.core.model.DriverSelectRequest;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -29,21 +30,21 @@ public class OlaAutoController {
 
   @RequestMapping(value = "/pick/ride", method = RequestMethod.POST)
   public String pickRide(HttpServletRequest req,
-      @RequestBody PickRideRequest pickRideRequest) {
+      @RequestBody DriverSelectRequest pickRideRequest) {
     System.out.println(pickRideRequest.getDriverId());
     return null;
   }
 
   @RequestMapping(value = "/customerapp", method = RequestMethod.GET)
   public ModelAndView getCustomerAppInfo(HttpServletRequest req) {
-    return new ModelAndView("customer_app", "rideRequest", new OlaRideRequest());
+    return new ModelAndView("customer_app", "rideRequest", new CustomerRideRequest());
   }
 
   @RequestMapping(value = "/customer/book/ride", method = RequestMethod.POST)
   public ModelAndView getCustomerAppInfo2(HttpServletRequest req,
-      @ModelAttribute("rideRequest") OlaRideRequest rideRequest) {
+      @ModelAttribute("rideRequest") CustomerRideRequest rideRequest) {
     System.out.println(rideRequest.getCustomerId());
-    ModelAndView mv = new ModelAndView("customer_app", "rideRequest", new OlaRideRequest());
+    ModelAndView mv = new ModelAndView("customer_app", "rideRequest", new CustomerRideRequest());
     mv.addObject("sucessMsg", "Sucessfully inserted");
     return mv;
   }

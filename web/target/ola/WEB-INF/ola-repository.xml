@@ -41,8 +41,8 @@
   <jpa:repositories base-package="com.youplus.core.dao"
     entity-manager-factory-ref="olaEntityManagerFactory"
     transaction-manager-ref="olaTransactionManager">
-    <repository:exclude-filter type="assignable"
-      expression="com.youplus.core.dao.BaseRepository"/>
+    <!--<repository:exclude-filter type="assignable"-->
+      <!--expression="com.youplus.core.dao.BaseRepository"/>-->
   </jpa:repositories>
 
 
