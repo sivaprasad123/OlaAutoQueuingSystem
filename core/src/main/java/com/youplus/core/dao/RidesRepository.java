@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RidesRepository extends JpaRepository<Ride, Integer> {
 
   public List<Ride> findAllOrderByStatus();
+
 }

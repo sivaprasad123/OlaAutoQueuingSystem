@@ -2,6 +2,7 @@ package com.youplus.core.service;
 
 import com.youplus.core.model.CustomerRideRequest;
 import com.youplus.core.model.DashboardResponse;
+import com.youplus.core.model.DriverAppResponse;
 import com.youplus.core.model.DriverSelectRequest;
 import java.util.List;
 
@@ -11,11 +12,13 @@ import java.util.List;
  */
 public interface IOlaAutoService {
 
-  public Integer customerRideRequest(CustomerRideRequest request);
+  public Integer bookRide(CustomerRideRequest request);
 
   public List<DashboardResponse> getDashboardInfo();
 
-  public void driverSelected(DriverSelectRequest request);
+  public String selectRide(DriverSelectRequest request);
+
+  public DriverAppResponse getDriverAppInfo(Integer driverId);
 
 
 }

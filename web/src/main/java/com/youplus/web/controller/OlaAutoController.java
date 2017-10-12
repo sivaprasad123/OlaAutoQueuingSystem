@@ -2,10 +2,11 @@ package com.youplus.web.controller;
 
 import com.youplus.core.model.CustomerRideRequest;
 import com.youplus.core.model.DashboardResponse;
+import com.youplus.core.model.DriverAppResponse;
 import com.youplus.core.model.DriverSelectRequest;
-import java.util.ArrayList;
+import com.youplus.core.service.IOlaAutoService;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,62 +22,49 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/v1")
 public class OlaAutoController {
 
-  @RequestMapping(value = "/driverapp", method = RequestMethod.POST)
-  public String getDriverAppInfo(HttpServletRequest req,
+  @Autowired
+  private IOlaAutoService olaAutoService;
+
+  @RequestMapping(value = "/driverapp", method = RequestMethod.GET)
+  public ModelAndView getDriverAppInfo(
       @RequestParam(value = "id", required = true) Integer driverId) {
-    System.out.println(driverId);
-    return null;
+    DriverAppResponse driverAppInfo = olaAutoService.getDriverAppInfo(driverId);
+    ModelAndView mv = new ModelAndView("driver_app");
+    mv.addObject("driverAppInfo", driverAppInfo);
+    return mv;
   }
 
-  @RequestMapping(value = "/pick/ride", method = RequestMethod.POST)
-  public String pickRide(HttpServletRequest req,
-      @RequestBody DriverSelectRequest pickRideRequest) {
-    System.out.println(pickRideRequest.getDriverId());
-    return null;
+  @RequestMapping(value = "/driverapp/select/ride", method = RequestMethod.POST)
+  public ModelAndView pickRide(@RequestBody DriverSelectRequest pickRideRequest) {
+    String message = olaAutoService.selectRide(pickRideRequest);
+    DriverAppResponse driverAppInfo = olaAutoService
+        .getDriverAppInfo(pickRideRequest.getDriverId());
+    ModelAndView mv = new ModelAndView("driver_app");
+    mv.addObject("driverAppInfo", driverAppInfo);
+    mv.addObject("selectRideResponse", message);
+    return mv;
   }
 
   @RequestMapping(value = "/customerapp", method = RequestMethod.GET)
-  public ModelAndView getCustomerAppInfo(HttpServletRequest req) {
-    return new ModelAndView("customer_app", "rideRequest", new CustomerRideRequest());
+  public ModelAndView getCustomerAppInfo() {
+    return new ModelAndView("customer_app", "customerRideRequest", new CustomerRideRequest());
   }
 
-  @RequestMapping(value = "/customer/book/ride", method = RequestMethod.POST)
-  public ModelAndView getCustomerAppInfo2(HttpServletRequest req,
-      @ModelAttribute("rideRequest") CustomerRideRequest rideRequest) {
-    System.out.println(rideRequest.getCustomerId());
-    ModelAndView mv = new ModelAndView("customer_app", "rideRequest", new CustomerRideRequest());
-    mv.addObject("sucessMsg", "Sucessfully inserted");
+  @RequestMapping(value = "/customerapp/book/ride", method = RequestMethod.POST)
+  public ModelAndView getCustomerAppInfo2(
+      @ModelAttribute("customerRideRequest") CustomerRideRequest rideRequest) {
+    Integer rideRequestId = olaAutoService.bookRide(rideRequest);
+    ModelAndView mv = new ModelAndView("customer_app", "customerRideRequest",
+        new CustomerRideRequest());
+    mv.addObject("sucessMsg", "Ride request id " + rideRequestId);
     return mv;
   }
 
   @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-  public ModelAndView getDashboardInfo(HttpServletRequest req) {
-    DashboardResponse dashboardResponse = new DashboardResponse();
-    dashboardResponse.setCustomerId(123);
-    dashboardResponse.setRequestId(01);
-    dashboardResponse.setStatus("Waiting");
-    dashboardResponse.setTimeElapsed("45 sec");
-
-    DashboardResponse dashboardResponse2 = new DashboardResponse();
-    dashboardResponse2.setCustomerId(200);
-    dashboardResponse2.setRequestId(02);
-    dashboardResponse2.setDriverId(234);
-    dashboardResponse2.setStatus("Ongoing");
-    dashboardResponse2.setTimeElapsed("1 min45 sec");
-
-    DashboardResponse dashboardResponse3 = new DashboardResponse();
-    dashboardResponse3.setCustomerId(1203);
-    dashboardResponse3.setDriverId(203);
-    dashboardResponse3.setRequestId(03);
-    dashboardResponse3.setStatus("Completed");
-    dashboardResponse3.setTimeElapsed("4 min 45 sec");
-
-    List<DashboardResponse> list = new ArrayList<>();
-    list.add(dashboardResponse);
-    list.add(dashboardResponse2);
-    list.add(dashboardResponse3);
+  public ModelAndView getDashboardInfo() {
+    List<DashboardResponse> dashboardList = olaAutoService.getDashboardInfo();
     ModelAndView mv = new ModelAndView("dashboard");
-    mv.addObject("dashboardList", list);
+    mv.addObject("dashboardList", dashboardList);
     return mv;
   }
 

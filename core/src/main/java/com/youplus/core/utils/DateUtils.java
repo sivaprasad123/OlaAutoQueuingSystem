@@ -10,7 +10,7 @@ public class DateUtils {
   private DateUtils() {
   }
 
-  public static String getDateInString(Date d1, Date d2) {
+  public static String getElapsedDate(Date d1, Date d2) {
     StringBuilder builder = new StringBuilder();
     long diff = d2.getTime() - d1.getTime();
     long diffSeconds = diff / 1000 % 60;
@@ -30,6 +30,15 @@ public class DateUtils {
     if (diffSeconds > 0) {
       builder.append(diffSeconds + " sec ");
 
+    }
+    return builder.toString();
+  }
+  public static String getDateInString(Date d1, Date d2) {
+    StringBuilder builder = new StringBuilder();
+    long diff = d2.getTime() - d1.getTime();
+    long diffMinutes = diff / (60 * 1000) % 60;
+    if (diffMinutes > 0) {
+      builder.append(diffMinutes + " mins ago ");
     }
     return builder.toString();
   }
