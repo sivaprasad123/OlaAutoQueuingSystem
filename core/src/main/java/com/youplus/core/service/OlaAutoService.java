@@ -38,7 +38,7 @@ public class OlaAutoService implements IOlaAutoService {
   @Override
   public List<DashboardResponse> getDashboardInfo() {
     List<DashboardResponse> dashboardResponseList = new ArrayList<>();
-    List<Ride> rides = ridesRepository.findAllOrderByStatus();
+    List<Ride> rides = ridesRepository.findAll();
     if (null != rides && rides.size() > 0) {
       for (Ride ride : rides) {
         DashboardResponse dashboardResponse = new DashboardResponse();
@@ -71,7 +71,7 @@ public class OlaAutoService implements IOlaAutoService {
   @Override
   public DriverAppResponse getDriverAppInfo(Integer driverId) {
     DriverAppResponse driverAppResponse = new DriverAppResponse();
-    List<Ride> rides = ridesRepository.findAllOrderByStatus();
+    List<Ride> rides = ridesRepository.findAll();
     if (null != rides && rides.size() > 0) {
       for (Ride ride : rides) {
         RideResponse rideResponse = new RideResponse();
