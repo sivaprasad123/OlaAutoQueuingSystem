@@ -76,7 +76,7 @@ public class OlaAutoService implements IOlaAutoService {
   @Override
   public DriverAppResponse getDriverAppInfo(Integer driverId) {
     DriverAppResponse driverAppResponse = new DriverAppResponse();
-    List<Ride> rides = ridesRepository.findByDriverIdOrDriverIdIsNull(driverId);
+    List<Ride> rides = ridesRepository.findByDriverIdOrDriverIdIsNullOrderByIdDesc(driverId);
     if (null != rides && rides.size() > 0) {
       for (Ride ride : rides) {
         RideResponse rideResponse = new RideResponse();

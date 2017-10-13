@@ -18,9 +18,9 @@
     </style>
 </head>
 
-<%--<c:if test="${not empty sucessMsg}">
-    ${sucessMsg}
-</c:if>--%>
+<c:if test="${not empty sucessMsg}">
+    <span class="centeralign">${sucessMsg}</span>
+</c:if>
 <body class="well">
 <h1>Customer App</h1>
 <form:form method="POST" action="/ola/v1/customerapp/book/ride.html"

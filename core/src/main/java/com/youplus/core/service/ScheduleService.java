@@ -1,5 +1,6 @@
 package com.youplus.core.service;
 
+import static java.util.concurrent.TimeUnit.MINUTES;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.youplus.core.dao.RidesRepository;
@@ -35,6 +36,6 @@ public class ScheduleService {
           System.err.println("Error while marking ride complete " + e.getMessage());
         }
       }
-    }, 2, SECONDS);
+    }, 5, MINUTES);
   }
 }

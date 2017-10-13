@@ -59,7 +59,7 @@ public class OlaAutoController {
     Integer rideRequestId = olaAutoService.bookRide(rideRequest);
     ModelAndView mv = new ModelAndView("customer_app", "customerRideRequest",
         new CustomerRideRequest());
-    mv.addObject("sucessMsg", "Ride request id " + rideRequestId);
+    mv.addObject("sucessMsg", "Your request has been accepted and generated request id " + rideRequestId);
     return mv;
   }
 

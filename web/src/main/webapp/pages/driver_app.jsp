@@ -59,6 +59,9 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 </head>
 <body class="well">
+<c:if test="${not empty selectRideResponse}">
+    <span class="centeralign">${selectRideResponse}</span>
+</c:if>
 <h1><span>Driver App - driver id :${driverId}
         <a href="/ola/v1/driverapp.html?id=${driverId}">
             <button type="button" class="btn btn-primary refresh">Refresh</button>

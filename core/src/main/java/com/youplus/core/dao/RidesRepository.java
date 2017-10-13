@@ -11,5 +11,5 @@ public interface RidesRepository extends JpaRepository<Ride, Integer> {
 
   Ride findById(Integer id);
 
-  List<Ride> findByDriverIdOrDriverIdIsNull(Integer driverId);
+  List<Ride> findByDriverIdOrDriverIdIsNullOrderByIdDesc(Integer driverId);
 }

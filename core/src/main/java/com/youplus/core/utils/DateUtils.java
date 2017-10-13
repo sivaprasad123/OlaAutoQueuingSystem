@@ -39,6 +39,8 @@ public class DateUtils {
     long diffMinutes = diff / (60 * 1000) % 60;
     if (diffMinutes > 0) {
       builder.append(diffMinutes + " mins ago ");
+    }else {
+      builder.append("just now");
     }
     return builder.toString();
   }
