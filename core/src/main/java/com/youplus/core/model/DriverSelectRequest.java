@@ -8,12 +8,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DriverSelectRequest {
   private Integer requestId;
-
-  private Integer customerId;
-
   private Integer driverId;
 
   public DriverSelectRequest() {
+  }
+
+  public DriverSelectRequest(Integer requestId, Integer driverId) {
+    this.requestId = requestId;
+    this.driverId = driverId;
   }
 
   public Integer getRequestId() {
@@ -22,14 +24,6 @@ public class DriverSelectRequest {
 
   public void setRequestId(Integer requestId) {
     this.requestId = requestId;
-  }
-
-  public Integer getCustomerId() {
-    return customerId;
-  }
-
-  public void setCustomerId(Integer customerId) {
-    this.customerId = customerId;
   }
 
   public Integer getDriverId() {

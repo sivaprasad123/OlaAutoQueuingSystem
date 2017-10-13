@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,16 +31,19 @@ public class OlaAutoController {
     DriverAppResponse driverAppInfo = olaAutoService.getDriverAppInfo(driverId);
     ModelAndView mv = new ModelAndView("driver_app");
     mv.addObject("driverAppInfo", driverAppInfo);
+    mv.addObject("driverId", driverId);
     return mv;
   }
 
-  @RequestMapping(value = "/driverapp/select/ride", method = RequestMethod.POST)
-  public ModelAndView pickRide(@RequestBody DriverSelectRequest pickRideRequest) {
-    String message = olaAutoService.selectRide(pickRideRequest);
+  @RequestMapping(value = "/driverapp/select/ride/{driverId}/{requestId}", method = RequestMethod.GET)
+  public ModelAndView pickRide(@PathVariable(value = "driverId") Integer driverId,
+      @PathVariable(value = "requestId") Integer requestId) {
+    String message = olaAutoService.selectRide(new DriverSelectRequest(requestId, driverId));
     DriverAppResponse driverAppInfo = olaAutoService
-        .getDriverAppInfo(pickRideRequest.getDriverId());
+        .getDriverAppInfo(driverId);
     ModelAndView mv = new ModelAndView("driver_app");
     mv.addObject("driverAppInfo", driverAppInfo);
+    mv.addObject("driverId", driverId);
     mv.addObject("selectRideResponse", message);
     return mv;
   }

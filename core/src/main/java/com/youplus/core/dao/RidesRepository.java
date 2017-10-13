@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RidesRepository extends JpaRepository<Ride, Integer> {
 
-  //public List<Ride> findAllOrderByStatus();
-  public List<Ride> findAll();
+  List<Ride> findAllByOrderByIdDesc();
 
   Ride findById(Integer id);
 
+  List<Ride> findByDriverIdOrDriverIdIsNull(Integer driverId);
 }
