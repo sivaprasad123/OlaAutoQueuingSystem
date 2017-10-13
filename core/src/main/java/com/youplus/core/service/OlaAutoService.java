@@ -25,6 +25,9 @@ public class OlaAutoService implements IOlaAutoService {
   @Autowired
   private RidesRepository ridesRepository;
 
+  @Autowired
+  private ScheduleService scheduleService;
+
   @Override
   public Integer bookRide(CustomerRideRequest request) {
     Ride ride = new Ride();
@@ -57,14 +60,16 @@ public class OlaAutoService implements IOlaAutoService {
   @Override
   @Transactional(value = "olaTransactionManager")
   public String selectRide(DriverSelectRequest request) {
-    Ride ride = ridesRepository.getOne(request.getRequestId());
-    if (null != ride.getDriverId()) {
-      return "request no longer available";
-    }
     synchronized (OlaAutoService.class) {
+      Ride ride = ridesRepository.findById(request.getRequestId());
+      if (null != ride.getDriverId()) {
+        return "request no longer available";
+      }
       ride.setDriverId(request.getDriverId());
       ride.setPickedupAt(new Date());
+      ride.setStatus(RideStatus.ONGOING.getId());
     }
+    scheduleService.scheduleRideComplete(request.getRequestId());
     return null;
   }
 
@@ -94,4 +99,5 @@ public class OlaAutoService implements IOlaAutoService {
 
     return driverAppResponse;
   }
+
 }

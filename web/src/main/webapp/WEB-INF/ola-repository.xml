@@ -30,7 +30,13 @@
     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
     p:packagesToScan="com.youplus.core.entity" p:dataSource-ref="olaDataSource"
     p:jpaPropertyMap-ref="jpaPropertyMap" p:jpaVendorAdapter-ref="hibernateVendor"
-    p:persistenceUnitName="ola"/>
+    p:persistenceUnitName="ola">
+    <property name="jpaProperties">
+      <props>
+        <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+      </props>
+    </property>
+  </bean>
 
   <bean id="olaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
     <property name="entityManagerFactory" ref="olaEntityManagerFactory"/>

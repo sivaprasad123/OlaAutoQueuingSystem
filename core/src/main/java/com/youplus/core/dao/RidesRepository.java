@@ -10,4 +10,6 @@ public interface RidesRepository extends JpaRepository<Ride, Integer> {
   //public List<Ride> findAllOrderByStatus();
   public List<Ride> findAll();
 
+  Ride findById(Integer id);
+
 }
