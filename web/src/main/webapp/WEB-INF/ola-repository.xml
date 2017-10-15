@@ -27,16 +27,16 @@
   <!-- Ola DB config Start  -->
 
   <bean id="olaEntityManagerFactory"
-    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-    p:packagesToScan="com.youplus.core.entity" p:dataSource-ref="olaDataSource"
-    p:jpaPropertyMap-ref="jpaPropertyMap" p:jpaVendorAdapter-ref="hibernateVendor"
-    p:persistenceUnitName="ola">
-    <property name="jpaProperties">
-      <props>
-        <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
-      </props>
-    </property>
-  </bean>
+  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+  p:packagesToScan="com.youplus.core.entity" p:dataSource-ref="olaDataSource"
+  p:jpaPropertyMap-ref="jpaPropertyMap" p:jpaVendorAdapter-ref="hibernateVendor"
+  p:persistenceUnitName="ola">
+  <property name="jpaProperties">
+    <props>
+      <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+    </props>
+  </property>
+</bean>
 
   <bean id="olaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
     <property name="entityManagerFactory" ref="olaEntityManagerFactory"/>
@@ -58,10 +58,10 @@
     <property name="url" value="jdbc:mysql://localhost:3306/ola"/>
     <property name="username" value="youplus"/>
     <property name="password" value="youplus@123"/>
-    <property name="initialSize" value="2"/>
-    <property name="maxActive" value="10"/>
-    <property name="maxIdle" value="5"/>
-    <property name="minIdle" value="2"/>
+    <property name="initialSize" value="10"/>
+    <property name="maxActive" value="20"/>
+    <property name="maxIdle" value="10"/>
+    <property name="minIdle" value="5"/>
   </bean>
 
   <!-- User Ola Database config End  -->

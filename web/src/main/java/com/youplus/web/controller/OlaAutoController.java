@@ -28,23 +28,33 @@ public class OlaAutoController {
   @RequestMapping(value = "/driverapp", method = RequestMethod.GET)
   public ModelAndView getDriverAppInfo(
       @RequestParam(value = "id", required = true) Integer driverId) {
-    DriverAppResponse driverAppInfo = olaAutoService.getDriverAppInfo(driverId);
     ModelAndView mv = new ModelAndView("driver_app");
-    mv.addObject("driverAppInfo", driverAppInfo);
-    mv.addObject("driverId", driverId);
+    try {
+      DriverAppResponse driverAppInfo = olaAutoService.getDriverAppInfo(driverId);
+      mv.addObject("driverAppInfo", driverAppInfo);
+      mv.addObject("driverId", driverId);
+    } catch (Exception e) {
+      e.printStackTrace();//TODO this should be removed
+      mv.setViewName("error");
+    }
     return mv;
   }
 
   @RequestMapping(value = "/driverapp/select/ride/{driverId}/{requestId}", method = RequestMethod.GET)
   public ModelAndView pickRide(@PathVariable(value = "driverId") Integer driverId,
       @PathVariable(value = "requestId") Integer requestId) {
-    String message = olaAutoService.selectRide(new DriverSelectRequest(requestId, driverId));
-    DriverAppResponse driverAppInfo = olaAutoService
-        .getDriverAppInfo(driverId);
     ModelAndView mv = new ModelAndView("driver_app");
-    mv.addObject("driverAppInfo", driverAppInfo);
-    mv.addObject("driverId", driverId);
-    mv.addObject("selectRideResponse", message);
+    try {
+      String message = olaAutoService.selectRide(new DriverSelectRequest(requestId, driverId));
+      DriverAppResponse driverAppInfo = olaAutoService
+          .getDriverAppInfo(driverId);
+      mv.addObject("driverAppInfo", driverAppInfo);
+      mv.addObject("driverId", driverId);
+      mv.addObject("selectRideResponse", message);
+    } catch (Exception e) {
+      e.printStackTrace();//TODO this should be removed
+      mv.setViewName("error");
+    }
     return mv;
   }
 
@@ -56,18 +66,29 @@ public class OlaAutoController {
   @RequestMapping(value = "/customerapp/book/ride", method = RequestMethod.POST)
   public ModelAndView getCustomerAppInfo2(
       @ModelAttribute("customerRideRequest") CustomerRideRequest rideRequest) {
-    Integer rideRequestId = olaAutoService.bookRide(rideRequest);
     ModelAndView mv = new ModelAndView("customer_app", "customerRideRequest",
         new CustomerRideRequest());
-    mv.addObject("sucessMsg", "Your request has been accepted and generated request id " + rideRequestId);
+    try {
+      Integer rideRequestId = olaAutoService.bookRide(rideRequest);
+      mv.addObject("sucessMsg",
+          "Your request has been accepted and generated request id " + rideRequestId);
+    } catch (Exception e) {
+      e.printStackTrace();//TODO this should be removed
+      mv.setViewName("error");
+    }
     return mv;
   }
 
   @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
   public ModelAndView getDashboardInfo() {
-    List<DashboardResponse> dashboardList = olaAutoService.getDashboardInfo();
     ModelAndView mv = new ModelAndView("dashboard");
-    mv.addObject("dashboardList", dashboardList);
+    try {
+      List<DashboardResponse> dashboardList = olaAutoService.getDashboardInfo();
+      mv.addObject("dashboardList", dashboardList);
+    } catch (Exception e) {
+      e.printStackTrace();//TODO this should be removed
+      mv.setViewName("error");
+    }
     return mv;
   }
 
